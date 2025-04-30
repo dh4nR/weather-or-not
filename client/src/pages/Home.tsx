@@ -163,7 +163,7 @@ export default function Home() {
             {!isLoading && data?.days && (
               <>
                 <div className="mb-6 p-4 card-dark rounded-lg shadow-md">
-                  <h2 className="text-xl font-bold mb-2">Weather Summary for {data.location}</h2>
+                  <h2 className="text-xl font-bold mb-2 text-foreground">Weather Summary for {data.location}</h2>
                   <p className="text-muted-foreground">
                     We've analyzed the weather forecast for the next 7 days and rated it for various activities.
                     Below you'll find our activity scores and recommendations to help you decide whether or not
