@@ -70,17 +70,21 @@ export default function SearchForm({ onLocationSelect, className }: SearchFormPr
   };
 
   const handleSelectLocation = (location: GeocodingResult) => {
-    const fullName = location.admin1 
-      ? `${location.name}, ${location.admin1}, ${location.country}`
-      : `${location.name}, ${location.country}`;
+    try {
+      const fullName = location.admin1 
+        ? `${location.name}, ${location.admin1}, ${location.country}`
+        : `${location.name}, ${location.country}`;
 
-    onLocationSelect({
-      latitude: location.latitude.toString(),
-      longitude: location.longitude.toString(),
-      name: fullName
-    });
-    setQuery(fullName);
-    setShowResults(false);
+      onLocationSelect({
+        latitude: location.latitude.toString(),
+        longitude: location.longitude.toString(),
+        name: fullName
+      });
+      setQuery(fullName);
+      setShowResults(false);
+    } catch (error) {
+      console.error("Error selecting location:", error);
+    }
   };
 
   return (
