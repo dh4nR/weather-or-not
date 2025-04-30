@@ -5,6 +5,7 @@ import { WeatherForecastData } from "@shared/types";
 import Header from "@/components/Header";
 import CurrentLocation from "@/components/CurrentLocation";
 import ActivityLegend from "@/components/ActivityLegend";
+import ActivitySummaryChart from "@/components/ActivitySummaryChart";
 import WeatherForecast from "@/components/WeatherForecast";
 import ErrorState from "@/components/ErrorState";
 import Footer from "@/components/Footer";
@@ -58,6 +59,10 @@ export default function Home() {
                 message={error?.message || "Failed to load weather data. Please try again."} 
                 onRetry={() => refetch()} 
               />
+            )}
+
+            {!isLoading && data?.days && (
+              <ActivitySummaryChart days={data.days} />
             )}
             
             <WeatherForecast 
