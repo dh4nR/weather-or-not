@@ -24,8 +24,8 @@ export default function Home() {
     error, 
     refetch 
   } = useQuery<WeatherForecastData>({
-    queryKey: ['/api/forecast', searchParams?.latitude, searchParams?.longitude],
-    enabled: !!searchParams,
+    queryKey: ['/api/forecast', searchParams?.latitude, searchParams?.longitude, searchParams?.name],
+    enabled: !!(searchParams?.latitude && searchParams?.longitude && searchParams?.name),
   });
 
   const handleSearch = (latitude: string, longitude: string, name: string) => {

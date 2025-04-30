@@ -29,7 +29,45 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
+    // Get the base URL from the first item in the queryKey
+    const baseUrl = queryKey[0] as string;
+    
+    // Check if we have additional parameters
+    if (queryKey.length > 1) {
+      const params = new URLSearchParams();
+      
+      // Extract parameters from queryKey and add them to URLSearchParams
+      // We're assuming queryKey is in format [url, ...params]
+      // For /api/forecast, queryKey will be ['/api/forecast', latitude, longitude, name]
+      if (baseUrl === '/api/forecast' && queryKey.length >= 4) {
+        params.append('latitude', queryKey[1] as string);
+        params.append('longitude', queryKey[2] as string);
+        // If name is provided, add it
+        if (queryKey[3]) {
+          params.append('name', queryKey[3] as string);
+        }
+      } else if (baseUrl === '/api/locations' && queryKey.length >= 2) {
+        params.append('query', queryKey[1] as string);
+      }
+      
+      // Make the request with the parameters
+      const url = `${baseUrl}?${params.toString()}`;
+      console.log('Making request to:', url);
+      
+      const res = await fetch(url, {
+        credentials: "include",
+      });
+
+      if (unauthorizedBehavior === "returnNull" && res.status === 401) {
+        return null;
+      }
+
+      await throwIfResNotOk(res);
+      return await res.json();
+    }
+    
+    // If no additional parameters, just make the request with the base URL
+    const res = await fetch(baseUrl, {
       credentials: "include",
     });
 
