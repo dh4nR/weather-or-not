@@ -27,6 +27,18 @@ Try out Whether or Not at: https://weather-or-not.replit.app/
 - **State Management**: React Query
 - **APIs**: Open-Meteo API for weather data and geocoding
 
+## Technical Choices
+
+This project was built with performance, developer experience, and type safety in mind:
+
+- **Vite (Frontend Build Tool)**: Offers fast development builds and modern tooling for a responsive developer workflow.
+- **Tailwind CSS**: Enables rapid UI development with consistent styling using utility-first classes.
+- **Fastify (Backend Framework)**: Chosen for its high performance and lightweight nature compared to alternatives like Express.
+- **TypeScript (Full Stack)**: Provides strong typing and compile-time error checking across both client and server.
+- **Drizzle ORM**: A modern, lightweight ORM with SQL-like syntax and full TypeScript support.
+- **Monorepo Architecture**: Allows sharing types and logic across frontend and backend via the `shared/` directory, reducing duplication and bugs.
+
+
 ## Setup Instructions
 
 To set up and run the application locally:
