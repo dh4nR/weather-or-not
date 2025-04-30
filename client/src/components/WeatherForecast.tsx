@@ -8,6 +8,12 @@ interface WeatherForecastProps {
 }
 
 export default function WeatherForecast({ forecastData, isLoading }: WeatherForecastProps) {
+  const [unit, setUnit] = React.useState('celsius');
+
+  const toggleUnit = () => {
+    setUnit(unit === 'celsius' ? 'fahrenheit' : 'celsius');
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
       {isLoading && (
@@ -20,8 +26,9 @@ export default function WeatherForecast({ forecastData, isLoading }: WeatherFore
       )}
 
       {!isLoading && forecastData?.days?.map((day, index) => (
-        <DayForecast key={index} day={day} isToday={index === 0} />
+        <DayForecast key={index} day={day} isToday={index === 0} unit={unit} toggleUnit={toggleUnit}/>
       ))}
+      <button onClick={toggleUnit}>{unit === 'celsius' ? 'Switch to Fahrenheit' : 'Switch to Celsius'}</button>
     </div>
   );
 }

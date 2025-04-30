@@ -17,9 +17,12 @@ import {
 interface DayForecastProps {
   day: DayForecastType;
   isToday: boolean;
+  useFahrenheit?: boolean;
 }
 
-export default function DayForecast({ day, isToday }: DayForecastProps) {
+export default function DayForecast({ day, isToday, useFahrenheit = false }: DayForecastProps) {
+  const convertTemp = (temp: number) => useFahrenheit ? temp : Math.round((temp - 32) * 5/9);
+  const tempUnit = useFahrenheit ? '°F' : '°C';
   const [isOpen, setIsOpen] = useState(isToday);
   
   // Get appropriate weather icon based on weather code
@@ -63,7 +66,7 @@ export default function DayForecast({ day, isToday }: DayForecastProps) {
         <div className="flex items-center gap-3 w-full sm:w-auto mb-2 sm:mb-0">
           <WeatherIcon className="text-amber-500 h-8 w-8 sm:h-10 sm:w-10" />
           <div>
-            <span className={`text-lg sm:text-xl font-bold ${getTempColor(day.temperature)}`}>{day.temperature}°F</span>
+            <span className={`text-lg sm:text-xl font-bold ${getTempColor(day.temperature)}`}>{convertTemp(day.temperature)}{tempUnit}</span>
             <div className="text-muted-foreground text-xs sm:text-sm flex items-center gap-1 flex-wrap mt-1">
               {bestActivity && (
                 <Badge variant="outline" className="text-xs py-0">
@@ -77,9 +80,9 @@ export default function DayForecast({ day, isToday }: DayForecastProps) {
         <div className="text-xs sm:text-sm text-muted-foreground ml-11 sm:ml-0">
           <div className="flex items-center gap-1">
             <ThermometerSun className="h-3 w-3 text-amber-500" />
-            <span>{day.temperatureHigh}°</span>
+            <span>{convertTemp(day.temperatureHigh)}{tempUnit}</span>
             <ThermometerSnowflake className="h-3 w-3 text-blue-500 ml-1" />
-            <span>{day.temperatureLow}°</span>
+            <span>{convertTemp(day.temperatureLow)}{tempUnit}</span>
           </div>
         </div>
       </div>
