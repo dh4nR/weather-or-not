@@ -23,7 +23,7 @@ interface DayForecastProps {
 export default function DayForecast({ day, isToday, useFahrenheit = false }: DayForecastProps) {
   const convertTemp = (temp: number) => useFahrenheit ? Math.round((temp * 9/5) + 32) : temp;
   const tempUnit = useFahrenheit ? '°F' : '°C';
-  const [isOpen, setIsOpen] = useState(isToday);
+  const [isOpen, setIsOpen] = useState(false);
   
   // Get appropriate weather icon based on weather code
   const WeatherIcon = getWeatherIcon(day.weatherCode);
