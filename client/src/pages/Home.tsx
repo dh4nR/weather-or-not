@@ -48,9 +48,13 @@ export default function Home() {
   }, [weatherData, setWeatherData]);
 
   if (error) {
+    const errorMessage = error instanceof Error 
+      ? error.message 
+      : "Failed to load weather data. Please try again.";
+      
     return (
       <ErrorState
-        message="Failed to load weather data. Please try again."
+        message={errorMessage}
         onRetry={() => window.location.reload()}
       />
     );
