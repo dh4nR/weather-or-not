@@ -54,10 +54,9 @@ export default function Home() {
 
         {!searchParams && !isLoading && (
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-center py-8 sm:py-12">
-            <div className="relative mb-6 sm:mb-8">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg blur opacity-30"></div>
-              <h1 className="relative px-6 py-3 sm:py-4 text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent drop-shadow-sm animate-pulse-slow">
-                Whether or Not
+            <div className="mb-6 sm:mb-8">
+              <h1 className="px-6 py-3 sm:py-4 text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent drop-shadow-sm animate-pulse-slow">
+                Weather or Not
               </h1>
             </div>
             
@@ -73,32 +72,6 @@ export default function Home() {
             <div className="w-full max-w-md transform transition-all duration-300 hover:scale-105 mb-4 sm:mb-6">
               <div className="p-4 card-dark rounded-lg border-2 border-primary shadow-lg shadow-primary/20">
                 <SearchForm onLocationSelect={setSearchParams} className="w-full" />
-                
-                {/* Recent searches suggestion below search bar */}
-                {searchHistory.length > 0 && (
-                  <div className="mt-4 pt-3 border-t border-border">
-                    <h3 className="text-sm font-medium mb-2 flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      Recent Searches
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {searchHistory.slice(0, 3).map((location, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setSearchParams(location)}
-                          className="text-xs text-primary bg-primary/10 hover:bg-primary/20 px-2 py-1 rounded-full transition-colors duration-200"
-                        >
-                          {location.name.split(',')[0]}
-                        </button>
-                      ))}
-                      {searchHistory.length > 3 && (
-                        <span className="text-xs text-muted-foreground px-1">+{searchHistory.length - 3} more</span>
-                      )}
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
 
