@@ -90,7 +90,7 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
           value={query}
           onChange={handleInputChange}
           placeholder="Search for a city or town..."
-          className="w-full pl-3 pr-10 py-2 sm:pl-4 bg-card border-border rounded-lg focus:ring-2 focus:ring-primary text-sm sm:text-base"
+          className="w-full pl-3 pr-10 py-2 sm:pl-4 bg-card border-border rounded-lg focus:ring-2 focus:ring-primary text-sm sm:text-base text-gray-500"
           onFocus={() => query.length > 1 && setShowResults(true)}
           autoComplete="off"
         />
