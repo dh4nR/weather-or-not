@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { GeocodingResult } from "@shared/types";
 import { Input } from "@/components/ui/input";
