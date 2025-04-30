@@ -41,7 +41,7 @@ export default function Home() {
   });
 
   if (error) {
-    return <ErrorState />;
+    return <ErrorState message="Failed to load weather data. Please try again." onRetry={() => window.location.reload()} />;
   }
 
   return (
@@ -53,63 +53,90 @@ export default function Home() {
         )}
 
         {!searchParams && !isLoading && (
-          <div className="flex flex-col items-center justify-center min-h-[60vh] text-center py-8 sm:py-12">
-            <div className="relative mb-6 sm:mb-8">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg blur opacity-30"></div>
-              <h1 className="relative px-6 py-3 sm:py-4 text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent drop-shadow-sm animate-pulse-slow">
+          <div className="flex flex-col items-center justify-center min-h-[70vh] text-center py-8 sm:py-12 relative overflow-hidden">
+            {/* Background illustrations (subtle) */}
+            <div className="absolute inset-0 pointer-events-none opacity-5 z-0">
+              <div className="absolute top-10 left-1/4 text-7xl rotate-12">⛷️</div>
+              <div className="absolute bottom-20 left-1/6 text-7xl -rotate-12">🏄</div>
+              <div className="absolute top-1/3 right-1/4 text-7xl rotate-6">🏙️</div>
+              <div className="absolute bottom-1/3 right-1/6 text-7xl -rotate-6">🌦️</div>
+            </div>
+            
+            {/* Main content */}
+            <div className="z-10 w-full max-w-2xl px-4">
+              {/* Title without background */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-primary mb-3">
                 Whether or Not
               </h1>
-            </div>
-            
-            <h2 className="text-xl sm:text-2xl font-bold mb-4 px-4 text-primary">Activity Weather Forecast</h2>
-            
-            <div className="text-muted-foreground w-full max-w-[90%] sm:max-w-md mx-auto mb-8 px-4">
-              <p className="leading-relaxed text-sm sm:text-base">
-                This is a tool designed to provide tailored activity recommendations based on weather forecasts for any city. Get intelligent suggestions for skiing, surfing, and sightseeing. Search for a city or town to explore the forecast and discover the most suitable activities.
+              
+              {/* Main headline */}
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-foreground">
+                Weather-Powered Activity Picks
+              </h2>
+              
+              {/* Subheadline */}
+              <p className="text-muted-foreground max-w-lg mx-auto mb-8 text-base sm:text-lg">
+                Get smart suggestions for skiing, surfing, and sightseeing based on the 7-day forecast—just enter a city or town to begin.
               </p>
-            </div>
+              
+              {/* Updated tagline */}
+              <div className="mb-8 font-medium">
+                <p className="text-lg sm:text-xl text-primary mb-2">Plan Better. Travel Smarter.</p>
+                <p className="text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
+                  "Whether or Not" recommends the best activities for any city based on the latest weather forecast.
+                  Just search a place to discover if it's ideal for skiing, surfing, or sightseeing this week.
+                </p>
+              </div>
 
-            {/* More prominent search bar with animation and shadow */}
-            <div className="w-full max-w-md transform transition-all duration-300 hover:scale-105 mb-4 sm:mb-6">
-              <div className="p-4 card-dark rounded-lg border-2 border-primary shadow-lg shadow-primary/20">
-                <SearchForm onLocationSelect={setSearchParams} className="w-full" />
-                
-                {/* Recent searches suggestion below search bar */}
-                {searchHistory.length > 0 && (
-                  <div className="mt-4 pt-3 border-t border-border">
-                    <h3 className="text-sm font-medium mb-2 flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              {/* Enhanced search bar */}
+              <div className="w-full max-w-md mx-auto transform transition-all duration-300 hover:scale-102 mb-4">
+                <div className="p-4 card-dark rounded-lg border border-primary/40 shadow-lg">
+                  <div className="relative">
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22s8-4 8-10V6l-8-4-8 4v6c0 6 8 10 8 10z"/>
                       </svg>
-                      Recent Searches
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {searchHistory.slice(0, 3).map((location, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setSearchParams(location)}
-                          className="text-xs text-primary bg-primary/10 hover:bg-primary/20 px-2 py-1 rounded-full transition-colors duration-200"
+                    </div>
+                    <SearchForm 
+                      onLocationSelect={setSearchParams} 
+                      className="pl-10"
+                      placeholder="e.g. Berlin, Tokyo, Cape Town…"
+                    />
+                  </div>
+                  
+                  {/* Recent searches in pill style */}
+                  {searchHistory.length > 0 && (
+                    <div className="mt-3 flex items-center justify-between">
+                      <div className="text-xs text-muted-foreground">
+                        Recent:
+                        <div className="inline-flex flex-wrap gap-1 ml-2">
+                          {searchHistory.slice(0, 3).map((location, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setSearchParams(location)}
+                              className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                            >
+                              {location.name.split(',')[0]}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      {searchHistory.length > 0 && (
+                        <button 
+                          onClick={() => {
+                            const { clearHistory } = useSearchHistory();
+                            clearHistory();
+                          }}
+                          className="text-xs text-muted-foreground hover:text-primary transition-colors"
                         >
-                          {location.name.split(',')[0]}
+                          Clear
                         </button>
-                      ))}
-                      {searchHistory.length > 3 && (
-                        <span className="text-xs text-muted-foreground px-1">+{searchHistory.length - 3} more</span>
                       )}
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
-
-            {/* More detailed search history with all entries */}
-            {searchHistory.length > 0 && (
-              <SearchHistory
-                history={searchHistory}
-                onLocationSelect={setSearchParams}
-                className="w-full max-w-md"
-              />
-            )}
           </div>
         )}
 

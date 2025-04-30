@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { GeocodingResult } from "@shared/types";
 import { Input } from "@/components/ui/input";
@@ -8,10 +8,15 @@ import { cn } from "@/lib/utils";
 import { searchLocations } from "@/lib/api";
 
 interface SearchFormProps {
-  onSearch: (latitude: string, longitude: string, name: string) => void;
+  onLocationSelect: Dispatch<SetStateAction<{
+    latitude: string;
+    longitude: string;
+    name: string;
+  } | null>>;
+  className?: string;
 }
 
-export default function SearchForm({ onSearch }: SearchFormProps) {
+export default function SearchForm({ onLocationSelect, className }: SearchFormProps) {
   const [query, setQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -73,11 +78,11 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
       ? `${location.name}, ${location.admin1}, ${location.country}`
       : `${location.name}, ${location.country}`;
 
-    onSearch(
-      location.latitude.toString(),
-      location.longitude.toString(),
-      fullName
-    );
+    onLocationSelect({
+      latitude: location.latitude.toString(),
+      longitude: location.longitude.toString(),
+      name: fullName
+    });
     setQuery(fullName);
     setShowResults(false);
   };
