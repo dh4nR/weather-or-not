@@ -64,32 +64,20 @@ export default function ActivityLegend() {
                 <StarRating score={4} showText={false} showTooltip={false} size={14} />
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                <div className="flex items-center justify-between p-2 rounded-md bg-primary/5 border border-primary/20">
-                  <span className="font-medium text-xs sm:text-sm">Excellent</span>
-                  <StarRating score={5} showText={false} showTooltip={false} size={14} />
-                </div>
-                
-                <div className="flex items-center justify-between p-2 rounded-md bg-primary/5 border border-primary/20">
-                  <span className="font-medium text-xs sm:text-sm">Very Good</span>
-                  <StarRating score={4} showText={false} showTooltip={false} size={14} />
-                </div>
-
-                <div className="flex items-center justify-between p-2 rounded-md bg-primary/5 border border-primary/20">
-                  <span className="font-medium text-xs sm:text-sm">Good</span>
-                  <StarRating score={3} showText={false} showTooltip={false} size={14} />
-                </div>
-                
-                <div className="flex items-center justify-between p-2 rounded-md bg-primary/5 border border-primary/20">
-                  <span className="font-medium text-xs sm:text-sm">Fair</span>
-                  <StarRating score={2} showText={false} showTooltip={false} size={14} />
-                </div>
-                
-                <div className="flex items-center justify-between p-2 rounded-md bg-primary/5 border border-primary/20">
-                  <span className="font-medium text-xs sm:text-sm">Poor</span>
-                  <StarRating score={1} showText={false} showTooltip={false} size={14} />
-                </div>
-</div>
+              <div className="flex items-center justify-between p-2 rounded-md bg-primary/5 border border-primary/20">
+                <span className="font-medium text-xs sm:text-sm">Good</span>
+                <StarRating score={3} showText={false} showTooltip={false} size={14} />
+              </div>
+              
+              <div className="flex items-center justify-between p-2 rounded-md bg-primary/5 border border-primary/20">
+                <span className="font-medium text-xs sm:text-sm">Fair</span>
+                <StarRating score={2} showText={false} showTooltip={false} size={14} />
+              </div>
+              
+              <div className="flex items-center justify-between p-2 rounded-md bg-primary/5 border border-primary/20">
+                <span className="font-medium text-xs sm:text-sm">Poor</span>
+                <StarRating score={1} showText={false} showTooltip={false} size={14} />
+              </div>
             </div>
           </div>
         </div>
