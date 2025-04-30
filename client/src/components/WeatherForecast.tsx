@@ -27,9 +27,19 @@ export default function WeatherForecast({ forecastData, isLoading }: WeatherFore
       )}
 
       {!isLoading && forecastData?.days?.map((day, index) => (
-        <DayForecast key={index} day={day} isToday={index === 0} unit={unit} toggleUnit={toggleUnit}/>
+        <DayForecast 
+          key={index} 
+          day={day} 
+          isToday={index === 0} 
+          useFahrenheit={unit === 'fahrenheit'}
+        />
       ))}
-      <button onClick={toggleUnit}>{unit === 'celsius' ? 'Switch to Fahrenheit' : 'Switch to Celsius'}</button>
+      <button 
+        onClick={toggleUnit}
+        className="col-span-full mt-4 px-4 py-2 bg-primary/10 hover:bg-primary/20 rounded-md text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+      >
+        {unit === 'celsius' ? 'Switch to Fahrenheit' : 'Switch to Celsius'}
+      </button>
     </div>
   );
 }
