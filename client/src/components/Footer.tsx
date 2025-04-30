@@ -1,3 +1,4 @@
+
 export default function Footer() {
   return (
     <footer className="bg-muted text-foreground py-4 px-3 sm:p-6 border-t border-border mt-8">
@@ -13,7 +14,7 @@ export default function Footer() {
             <p className="text-muted-foreground text-xs sm:text-sm">
               Powered by <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Open-Meteo API</a>
             </p>
-            <p className="text-muted-foreground text-xs sm:text-sm mt-1">© {new Date().getFullYear()} Whether or Not by C4. All rights reserved.</p>
+            <p className="text-muted-foreground text-xs sm:text-sm mt-1">© {new Date().getFullYear()} Whether or Not. All rights reserved.</p>
           </div>
         </div>
       </div>
