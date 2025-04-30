@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { 
   getWeatherType, 
   getWeatherColorTheme, 
@@ -10,13 +10,13 @@ import { WeatherForecastData } from '@shared/types';
 interface WeatherThemeContextProps {
   weatherType: WeatherType;
   colorTheme: WeatherColorTheme;
-  updateWeatherTheme: (weatherData: WeatherForecastData | undefined) => void;
+  setWeatherData: (weatherData: WeatherForecastData | undefined) => void;
 }
 
 const defaultWeatherTheme: WeatherThemeContextProps = {
   weatherType: 'default',
   colorTheme: getWeatherColorTheme('default'),
-  updateWeatherTheme: () => {}
+  setWeatherData: () => {}
 };
 
 const WeatherThemeContext = createContext<WeatherThemeContextProps>(defaultWeatherTheme);
@@ -24,8 +24,15 @@ const WeatherThemeContext = createContext<WeatherThemeContextProps>(defaultWeath
 export function WeatherThemeProvider({ children }: { children: React.ReactNode }) {
   const [weatherType, setWeatherType] = useState<WeatherType>('default');
   const [colorTheme, setColorTheme] = useState<WeatherColorTheme>(getWeatherColorTheme('default'));
+  const [weatherData, setWeatherDataState] = useState<WeatherForecastData | undefined>(undefined);
 
-  const updateWeatherTheme = (weatherData: WeatherForecastData | undefined) => {
+  // Memoize the setter function to avoid it changing on every render
+  const setWeatherData = useCallback((data: WeatherForecastData | undefined) => {
+    setWeatherDataState(data);
+  }, []);
+
+  // Update the theme when weather data changes
+  useEffect(() => {
     if (!weatherData || !weatherData.days || weatherData.days.length === 0) {
       setWeatherType('default');
       setColorTheme(getWeatherColorTheme('default'));
@@ -38,14 +45,14 @@ export function WeatherThemeProvider({ children }: { children: React.ReactNode }
     
     setWeatherType(newWeatherType);
     setColorTheme(getWeatherColorTheme(newWeatherType));
-  };
+  }, [weatherData]);
 
   return (
     <WeatherThemeContext.Provider 
       value={{ 
         weatherType, 
         colorTheme, 
-        updateWeatherTheme 
+        setWeatherData
       }}
     >
       {children}

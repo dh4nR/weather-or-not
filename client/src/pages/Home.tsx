@@ -29,7 +29,7 @@ export default function Home() {
   const themeMode = useThemeMode();
   const userLocation = useCurrentLocation();
   const { searchHistory, addToHistory } = useSearchHistory();
-  const { updateWeatherTheme, colorTheme } = useWeatherTheme();
+  const { setWeatherData, colorTheme } = useWeatherTheme();
 
   useEffect(() => {
     if (userLocation && !userLocation.loading && !searchParams) {
@@ -44,19 +44,28 @@ export default function Home() {
   
   // Update weather theme when weather data changes
   useEffect(() => {
-    if (weatherData) {
-      updateWeatherTheme(weatherData);
-    }
-  }, [weatherData]);
+    setWeatherData(weatherData);
+  }, [weatherData, setWeatherData]);
 
   if (error) {
-    return <ErrorState />;
+    return (
+      <ErrorState
+        message="Failed to load weather data. Please try again."
+        onRetry={() => window.location.reload()}
+      />
+    );
   }
 
-  // Generate dynamic gradient based on weather theme
-  const titleGradient = searchParams && weatherData
-    ? `bg-gradient-to-r from-[${colorTheme.gradientFrom}] via-[${colorTheme.secondary}] to-[${colorTheme.gradientTo}]`
-    : "bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600";
+  // Generate inline style for dynamic gradient based on weather theme
+  const gradientStyle = searchParams && weatherData
+    ? {
+        backgroundImage: `linear-gradient(to right, ${colorTheme.gradientFrom}, ${colorTheme.secondary}, ${colorTheme.gradientTo})`,
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+        color: 'transparent'
+      }
+    : {};
 
   return (
     <div 
@@ -85,7 +94,16 @@ export default function Home() {
         {!searchParams && !isLoading && (
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-center py-8 sm:py-12">
             <div className="mb-6 sm:mb-8">
-              <h1 className={`px-6 py-3 sm:py-4 text-4xl sm:text-5xl md:text-6xl font-extrabold ${titleGradient} bg-clip-text text-transparent drop-shadow-sm animate-pulse-slow`}>
+              <h1 
+                className="px-6 py-3 sm:py-4 text-4xl sm:text-5xl md:text-6xl font-extrabold drop-shadow-sm animate-pulse-slow"
+                style={searchParams && weatherData ? gradientStyle : {
+                  backgroundImage: 'linear-gradient(to right, #3b82f6, #38bdf8, #2563eb)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  color: 'transparent'
+                }}
+              >
                 Weather or Not
               </h1>
             </div>
@@ -100,7 +118,17 @@ export default function Home() {
 
             {/* More prominent search bar with animation and shadow */}
             <div className="w-full max-w-md transform transition-all duration-300 hover:scale-105 mb-4 sm:mb-6">
-              <div className="p-4 card-dark rounded-lg border-2 border-primary shadow-lg shadow-primary/20">
+              <div 
+                className="p-4 card-dark rounded-lg shadow-lg"
+                style={{
+                  borderWidth: "2px",
+                  borderStyle: "solid",
+                  borderColor: searchParams && weatherData ? colorTheme.primary : "hsl(var(--primary))",
+                  boxShadow: searchParams && weatherData 
+                    ? `0 10px 15px -3px ${colorTheme.primary}20, 0 4px 6px -4px ${colorTheme.primary}20` 
+                    : "0 10px 15px -3px hsl(var(--primary) / 0.2), 0 4px 6px -4px hsl(var(--primary) / 0.2)"
+                }}
+              >
                 <SearchForm onLocationSelect={setSearchParams} className="w-full" />
               </div>
             </div>
@@ -119,8 +147,11 @@ export default function Home() {
         {searchParams && weatherData && (
           <>
             <ActivityLegend />
-            <ActivitySummaryChart data={weatherData} />
-            <WeatherForecast data={weatherData} />
+            <ActivitySummaryChart days={weatherData.days} />
+            <WeatherForecast 
+              forecastData={weatherData}
+              isLoading={isLoading}
+            />
           </>
         )}
       </main>
