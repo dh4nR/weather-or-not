@@ -62,7 +62,17 @@ export default function Home() {
             )}
 
             {!isLoading && data?.days && (
-              <ActivitySummaryChart days={data.days} />
+              <>
+                <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
+                  <h2 className="text-xl font-bold text-neutral-800 mb-2">Weather Summary for {data.location}</h2>
+                  <p className="text-neutral-600">
+                    We've analyzed the weather forecast for the next 7 days and rated it for various activities.
+                    Below you'll find our activity scores and recommendations to help you decide whether or not
+                    it's a good time for your favorite outdoor and indoor activities.
+                  </p>
+                </div>
+                <ActivitySummaryChart days={data.days} />
+              </>
             )}
             
             <WeatherForecast 
