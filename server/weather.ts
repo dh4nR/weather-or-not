@@ -156,7 +156,8 @@ export async function getWeatherForecast(latitude: string, longitude: string) {
           "weathercode"
         ],
         timezone: "auto",
-        forecast_days: 7
+        forecast_days: 7,
+        temperature_unit: "celsius"
       }
     });
 
