@@ -16,30 +16,35 @@ export default function WeatherForecast({ forecastData, isLoading }: WeatherFore
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
-      {isLoading && (
-        // Loading placeholders
-        <>
-          {Array.from({ length: 4 }).map((_, index) => (
-            <ForecastSkeleton key={index} />
-          ))}
-        </>
-      )}
-
-      {!isLoading && forecastData?.days?.map((day, index) => (
-        <DayForecast 
-          key={index} 
-          day={day} 
-          isToday={index === 0} 
-          useFahrenheit={unit === 'fahrenheit'}
-        />
-      ))}
-      <button 
-        onClick={toggleUnit}
-        className="col-span-full mt-4 px-4 py-2 bg-primary/10 hover:bg-primary/20 rounded-md text-sm font-medium flex items-center justify-center gap-2 transition-colors"
-      >
-        {unit === 'celsius' ? 'Switch to Fahrenheit' : 'Switch to Celsius'}
-      </button>
+    <div className="space-y-4">
+      <div className="flex justify-end">
+        <button 
+          onClick={toggleUnit}
+          className="px-4 py-2 bg-primary/10 hover:bg-primary/20 rounded-md text-sm font-medium flex items-center justify-center gap-2 transition-colors text-muted-foreground"
+        >
+          {unit === 'celsius' ? 'Switch to Fahrenheit' : 'Switch to Celsius'}
+        </button>
+      </div>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
+        {isLoading && (
+          // Loading placeholders
+          <>
+            {Array.from({ length: 4 }).map((_, index) => (
+              <ForecastSkeleton key={index} />
+            ))}
+          </>
+        )}
+  
+        {!isLoading && forecastData?.days?.map((day, index) => (
+          <DayForecast 
+            key={index} 
+            day={day} 
+            isToday={index === 0} 
+            useFahrenheit={unit === 'fahrenheit'}
+          />
+        ))}
+      </div>
     </div>
   );
 }
