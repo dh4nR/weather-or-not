@@ -21,7 +21,7 @@ interface DayForecastProps {
 }
 
 export default function DayForecast({ day, isToday, useFahrenheit = false }: DayForecastProps) {
-  const convertTemp = (temp: number) => useFahrenheit ? temp : Math.round((temp - 32) * 5/9);
+  const convertTemp = (temp: number) => useFahrenheit ? Math.round((temp * 9/5) + 32) : temp;
   const tempUnit = useFahrenheit ? '°F' : '°C';
   const [isOpen, setIsOpen] = useState(isToday);
   
