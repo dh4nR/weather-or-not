@@ -98,7 +98,10 @@ export default function Home() {
         transition: "all 0.5s ease-in-out"
       }}
     >
-      <Header onLocationSelect={setSearchParams} />
+      <Header 
+        onLocationSelect={setSearchParams} 
+        showSearch={!!searchParams} 
+      />
       <main 
         className="container mx-auto px-4 py-8 flex-grow"
         style={{
