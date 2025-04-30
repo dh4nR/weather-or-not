@@ -38,6 +38,35 @@ This project was built with performance, developer experience, and type safety i
 - **Drizzle ORM**: A modern, lightweight ORM with SQL-like syntax and full TypeScript support.
 - **Monorepo Architecture**: Allows sharing types and logic across frontend and backend via the `shared/` directory, reducing duplication and bugs.
 
+## Why These Approaches and Technologies?
+
+### Vite (Frontend Build Tool)
+**Why?** Traditional bundlers like Webpack can be slow, especially for larger apps. Vite was chosen for its fast startup, instant hot module reloading, and native support for modern JavaScript.  
+**Outcome:** Greatly improved developer experience and faster feedback loops during frontend development.
+
+### Tailwind CSS
+**Why?** Tailwind’s utility-first design encourages building interfaces quickly without leaving your HTML. It removes the need for naming CSS classes and managing large stylesheets.  
+**Outcome:** Faster UI prototyping, consistent styling, and minimal custom CSS.
+
+### Fastify (Backend Framework)
+**Why?** Fastify is significantly faster than Express and has better built-in support for schema validation, plugins, and performance monitoring.  
+**Outcome:** A backend that is both fast and modular, with clear data validation and strong performance.
+
+### TypeScript (Full Stack)
+**Why?** TypeScript provides static typing, better tooling, and helps catch bugs at compile time rather than at runtime.  
+**Outcome:** Safer, more predictable code — especially important in a project with shared logic between frontend and backend.
+
+### Drizzle ORM
+**Why?** Drizzle offers SQL-like syntax in TypeScript while maintaining type safety. It’s lighter and easier to reason about than heavier ORMs like Prisma or TypeORM.  
+**Outcome:** Cleaner, more maintainable database queries with full IDE autocompletion and type inference.
+
+### Monorepo with Shared Types
+**Why?** Keeping frontend and backend code in a single repo simplifies dependency management and enables shared logic (e.g. validation schemas, scoring functions).  
+**Outcome:** Less duplication, easier updates, and fewer bugs when working across the stack.
+
+### Replit (Prototyping and Live Demo)
+**Why?** Replit allows you to prototype and deploy small apps quickly with no infrastructure setup.  
+**Outcome:** Fast iteration, instant feedback, and an easy way to share the live app during development or demos.
 
 ## Setup Instructions
 
