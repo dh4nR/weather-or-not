@@ -1,11 +1,15 @@
 
-import type { FC } from 'react';
+import type { FC, Dispatch, SetStateAction } from 'react';
 
 interface HeaderProps {
-  onSearch: (latitude: string, longitude: string, name: string) => void;
+  onLocationSelect: Dispatch<SetStateAction<{
+    latitude: string;
+    longitude: string;
+    name: string;
+  } | null>>;
 }
 
-export default function Header({ onSearch }: HeaderProps) {
+export default function Header({ onLocationSelect }: HeaderProps) {
   return (
     <header className="bg-card shadow-md border-b border-border">
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between">
