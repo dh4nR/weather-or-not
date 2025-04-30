@@ -18,7 +18,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      const locations = await getLocationFromQuery(query);
+      console.log(`Searching for locations with query: "${query}"`);
+      const locations = await getLocationFromQuery(query.trim());
+      console.log(`Found ${locations.results?.length || 0} locations`);
       res.json(locations);
     } catch (error) {
       console.error("Error fetching locations:", error);

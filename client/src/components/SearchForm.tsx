@@ -1,10 +1,11 @@
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { GeocodingResult } from "@shared/types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { searchLocations } from "@/lib/api";
 
 interface SearchFormProps {
   onSearch: (latitude: string, longitude: string, name: string) => void;
@@ -13,16 +14,35 @@ interface SearchFormProps {
 export default function SearchForm({ onSearch }: SearchFormProps) {
   const [query, setQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
 
-  const { data: locations, isLoading } = useQuery({ 
-    queryKey: ['/api/locations', query],
-    enabled: query.length > 1 && showResults,
+  // Debounce the search query to avoid too many requests
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (query.trim().length > 1) {
+        setDebouncedQuery(query);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  const { 
+    data: locations, 
+    isLoading,
+    refetch,
+    error
+  } = useQuery({ 
+    queryKey: ['/api/locations', debouncedQuery],
+    queryFn: () => searchLocations(debouncedQuery),
+    enabled: debouncedQuery.length > 1 && showResults,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim().length > 1) {
       setShowResults(true);
+      refetch();
     }
   };
 
@@ -82,6 +102,10 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
           <div className="p-3 text-neutral-500 text-sm">Loading...</div>
         )}
         
+        {error && (
+          <div className="p-3 text-red-500 text-sm">Error loading locations. Please try again.</div>
+        )}
+        
         {locations?.results?.map((location) => (
           <div 
             key={location.id}
@@ -94,7 +118,7 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
           </div>
         ))}
         
-        {locations?.results?.length === 0 && !isLoading && (
+        {locations?.results?.length === 0 && !isLoading && !error && (
           <div className="p-3 text-neutral-500 text-sm">No locations found</div>
         )}
       </div>

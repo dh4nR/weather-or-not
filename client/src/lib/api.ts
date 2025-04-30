@@ -4,14 +4,25 @@ import { GeocodingResponse, WeatherForecastData } from "@shared/types";
  * Get location suggestions from a search query
  */
 export async function searchLocations(query: string): Promise<GeocodingResponse> {
-  const params = new URLSearchParams({ query });
-  const response = await fetch(`/api/locations?${params}`);
-  
-  if (!response.ok) {
-    throw new Error('Failed to fetch location data');
+  if (!query || query.trim().length < 2) {
+    return { results: [] };
   }
   
-  return await response.json();
+  try {
+    const params = new URLSearchParams({ query: query.trim() });
+    const response = await fetch(`/api/locations?${params}`);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Location search error:', errorText);
+      throw new Error(`Failed to fetch location data: ${response.status}`);
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error in searchLocations:', error);
+    throw error;
+  }
 }
 
 /**

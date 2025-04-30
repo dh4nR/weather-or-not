@@ -58,18 +58,37 @@ export function getWeatherIcon(code: number): string {
  */
 export async function getLocationFromQuery(query: string): Promise<GeocodingResponse> {
   try {
+    console.log(`Making geocoding API request for: "${query}"`);
+    
     const response = await axios.get<GeocodingResponse>(GEOCODING_API_URL, {
       params: {
         name: query,
-        count: 5,
+        count: 10,
         language: "en",
         format: "json"
       }
     });
     
+    // Log the response for debugging
+    console.log(`Geocoding API response status: ${response.status}`);
+    console.log(`Results found: ${response.data.results?.length || 0}`);
+    
+    if (!response.data.results) {
+      response.data.results = [];
+    }
+    
     return response.data;
   } catch (error) {
-    console.error("Error fetching location data:", error);
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error fetching location data:", {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        message: error.message
+      });
+    } else {
+      console.error("Error fetching location data:", error);
+    }
     throw new Error("Failed to fetch location data");
   }
 }
