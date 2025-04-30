@@ -23,7 +23,7 @@ export default function Home() {
     longitude: string;
     name: string;
   } | null>(null);
-  
+
   const [locationSuggestion, setLocationSuggestion] = useState<GeocodingResult | null>(null);
   const [loadingUserLocation, setLoadingUserLocation] = useState(true);
   const themeMode = useThemeMode();
@@ -47,7 +47,7 @@ export default function Home() {
       addToHistory(searchParams);
     }
   }, [data, searchParams, addToHistory]);
-  
+
   // Instead of using reverse geocoding, let's use a simpler approach
   // We'll search for "London" as an initial suggestion
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function Home() {
       try {
         // Search for London as a default location suggestion
         const response = await searchLocations("London");
-        
+
         if (response.results && response.results.length > 0) {
           setLocationSuggestion(response.results[0]);
         }
@@ -65,7 +65,7 @@ export default function Home() {
         setLoadingUserLocation(false);
       }
     };
-    
+
     fetchDefaultLocation();
   }, []);
 
@@ -76,12 +76,12 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header onSearch={() => {}} /> {/* Keep header but don't use its search */}
-      
+
       <main className="container mx-auto px-4 py-8 flex-grow">
         {searchParams && (
           <CurrentLocation location={searchParams.name} />
         )}
-        
+
         {!searchParams && !isLoading && (
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-center py-12">
             <div className="flex items-center mb-6">
@@ -92,14 +92,14 @@ export default function Home() {
             </div>
             <h2 className="text-2xl font-bold mb-4">Activity Weather Forecast</h2>
             <p className="text-muted-foreground max-w-md mb-8">
-              Search for a city or town to get weather forecasts and activity recommendations for skiing, surfing, and sightseeing.
-            </p>
-            
+                "Weather or Not" is a lightweight MVP prototype that provides tailored activity recommendations. skiing, surfing, and sightseeing—based on 7-day weather forecasts for any city. It uses real-time data from Open-Meteo to generate intelligent suggestions. Simply search for a city or town to explore the forecast and discover the most suitable activities.
+              </p>
+
             {/* More prominent search form with a shadow and border */}
             <div className="w-full max-w-md mb-6 transform transition-all duration-300 hover:scale-105">
               <div className="p-4 card-dark rounded-lg border-2 border-primary shadow-lg shadow-primary/20">
                 <SearchForm onSearch={handleSearch} />
-                
+
                 {/* Location suggestion */}
                 {locationSuggestion && !loadingUserLocation && (
                   <div className="mt-3 text-center">
@@ -124,7 +124,7 @@ export default function Home() {
                     </button>
                   </div>
                 )}
-                
+
                 {/* Show loading state for user location */}
                 {loadingUserLocation && (
                   <div className="mt-3 text-center">
@@ -133,7 +133,7 @@ export default function Home() {
                 )}
               </div>
             </div>
-            
+
             {/* Search history */}
             {searchHistory.length > 0 && (
               <div className="w-full max-w-md mt-6">
@@ -142,15 +142,15 @@ export default function Home() {
             )}
           </div>
         )}
-        
+
         {searchParams && (
           <>
             <div className="w-full max-w-md mx-auto my-8">
               <SearchForm onSearch={handleSearch} />
             </div>
-            
+
             <ActivityLegend />
-            
+
             {isError && (
               <ErrorState 
                 message={error?.message || "Failed to load weather data. Please try again."} 
@@ -171,7 +171,7 @@ export default function Home() {
                 <ActivitySummaryChart days={data.days} />
               </>
             )}
-            
+
             <WeatherForecast 
               forecastData={data} 
               isLoading={isLoading} 
@@ -179,7 +179,7 @@ export default function Home() {
           </>
         )}
       </main>
-      
+
       <Footer />
     </div>
   );
