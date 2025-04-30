@@ -11,7 +11,7 @@ import ActivitySummaryChart from "@/components/ActivitySummaryChart";
 import WeatherForecast from "@/components/WeatherForecast";
 import ErrorState from "@/components/ErrorState";
 import Footer from "@/components/Footer";
-
+import C4Logo from "@/components/C4Logo";
 import { useSearchHistory } from "@/hooks/useSearchHistory";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
 import { searchLocations } from "@/lib/api";
