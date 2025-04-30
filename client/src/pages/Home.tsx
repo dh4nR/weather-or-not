@@ -13,7 +13,7 @@ import ErrorState from "@/components/ErrorState";
 import Footer from "@/components/Footer";
 import { useSearchHistory } from "@/hooks/useSearchHistory";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
-import { searchLocations } from "@/lib/api";
+import { searchLocations, getWeatherForecast } from "@/lib/api";
 import { useThemeMode } from "@/hooks/useThemeMode";
 import { useWeatherTheme } from "@/hooks/useWeatherTheme";
 
@@ -36,9 +36,25 @@ export default function Home() {
       setLoadingUserLocation(false);
     }
   }, [userLocation, searchParams]);
+  
+  // Add to search history when search params change
+  useEffect(() => {
+    if (searchParams) {
+      addToHistory(searchParams);
+    }
+  }, [searchParams, addToHistory]);
 
   const { data: weatherData, isLoading, error } = useQuery<WeatherForecastData>({
-    queryKey: ['weather', searchParams?.latitude, searchParams?.longitude],
+    queryKey: ['weather', searchParams?.latitude, searchParams?.longitude, searchParams?.name],
+    queryFn: () => {
+      if (!searchParams) throw new Error("No search parameters");
+      console.log("Making request to:", `weather?`);
+      return getWeatherForecast(
+        searchParams.latitude, 
+        searchParams.longitude, 
+        searchParams.name
+      );
+    },
     enabled: !!searchParams,
   });
   
