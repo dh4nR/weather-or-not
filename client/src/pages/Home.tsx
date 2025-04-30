@@ -140,7 +140,22 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Main search bar is now in header */}
+            {/* More prominent search bar with animation and shadow */}
+            <div className="w-full max-w-md transform transition-all duration-300 hover:scale-105 mb-4 sm:mb-6">
+              <div 
+                className="p-4 card-dark rounded-lg shadow-lg"
+                style={{
+                  borderWidth: "2px",
+                  borderStyle: "solid",
+                  borderColor: searchParams && weatherData ? colorTheme.primary : "hsl(var(--primary))",
+                  boxShadow: searchParams && weatherData 
+                    ? `0 10px 15px -3px ${colorTheme.primary}20, 0 4px 6px -4px ${colorTheme.primary}20` 
+                    : "0 10px 15px -3px hsl(var(--primary) / 0.2), 0 4px 6px -4px hsl(var(--primary) / 0.2)"
+                }}
+              >
+                <SearchForm onLocationSelect={setSearchParams} className="w-full" />
+              </div>
+            </div>
 
             {/* More detailed search history with all entries */}
             {searchHistory.length > 0 && (
