@@ -91,9 +91,22 @@ export default function Home() {
               </h1>
             </div>
             <h2 className="text-2xl font-bold mb-4">Activity Weather Forecast</h2>
-            <p className="text-muted-foreground max-w-md mb-8">
-                "Weather or Not" is a lightweight MVP prototype that provides tailored activity recommendations. skiing, surfing, and sightseeing—based on 7-day weather forecasts for any city. It uses real-time data from Open-Meteo to generate intelligent suggestions. Simply search for a city or town to explore the forecast and discover the most suitable activities.
+            <div className="text-muted-foreground max-w-md mb-8 space-y-4">
+              <p className="leading-relaxed">
+                <span className="font-semibold text-foreground">"Weather or Not"</span> is a lightweight MVP prototype that provides tailored activity recommendations based on 7-day weather forecasts for any city.
               </p>
+              <p className="leading-relaxed">
+                Get intelligent suggestions for:
+                <span className="block mt-2 ml-4 font-medium text-foreground">
+                  • Skiing
+                  • Surfing
+                  • Sightseeing
+                </span>
+              </p>
+              <p className="leading-relaxed">
+                Using real-time data from Open-Meteo, simply search for a city or town to explore the forecast and discover the most suitable activities.
+              </p>
+            </div>
 
             {/* More prominent search form with a shadow and border */}
             <div className="w-full max-w-md mb-6 transform transition-all duration-300 hover:scale-105">
