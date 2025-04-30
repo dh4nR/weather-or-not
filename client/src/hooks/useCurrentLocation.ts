@@ -1,4 +1,6 @@
+
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export interface Location {
   latitude: string;
@@ -8,8 +10,7 @@ export interface Location {
 }
 
 /**
- * Hook to get user's current geolocation
- * @returns User's current location coordinates
+ * Hook to get user's current geolocation with IP fallback
  */
 export function useCurrentLocation() {
   const [location, setLocation] = useState<Location>({
@@ -18,14 +19,27 @@ export function useCurrentLocation() {
     loading: true
   });
 
-  useEffect(() => {
-    if (!navigator.geolocation) {
+  async function getLocationFromIP() {
+    try {
+      const response = await axios.get('https://ipapi.co/json/');
+      setLocation({
+        latitude: response.data.latitude.toString(),
+        longitude: response.data.longitude.toString(),
+        loading: false
+      });
+    } catch (error) {
       setLocation({
         latitude: '',
         longitude: '',
-        error: 'Geolocation is not supported by your browser',
+        error: 'Could not determine location',
         loading: false
       });
+    }
+  }
+
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      getLocationFromIP();
       return;
     }
 
@@ -37,17 +51,13 @@ export function useCurrentLocation() {
           loading: false
         });
       },
-      (error) => {
-        setLocation({
-          latitude: '',
-          longitude: '',
-          error: `Unable to retrieve your location: ${error.message}`,
-          loading: false
-        });
+      () => {
+        // If browser geolocation fails, try IP-based location
+        getLocationFromIP();
       },
       {
         enableHighAccuracy: true,
-        timeout: 10000,
+        timeout: 5000,
         maximumAge: 0
       }
     );
