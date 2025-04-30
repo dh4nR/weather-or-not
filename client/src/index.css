@@ -3,6 +3,26 @@
 @tailwind utilities;
 
 :root {
+  --primary: #3b82f6;
+  --primary-light: #60a5fa;
+  --background: #121212;
+  --card-bg: #1e1e1e;
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --border-color: #2e2e2e;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+.card-dark {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+:root {
       --background: 0 0% 100%;
 --foreground: 20 14.3% 4.1%;
 --muted: 60 4.8% 95.9%;
