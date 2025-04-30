@@ -91,20 +91,9 @@ export default function Home() {
               </h1>
             </div>
             <h2 className="text-2xl font-bold mb-4">Activity Weather Forecast</h2>
-            <div className="text-muted-foreground max-w-md mb-8 space-y-4">
+            <div className="text-muted-foreground max-w-md mb-8">
               <p className="leading-relaxed">
-                <span className="font-semibold text-foreground">"Weather or Not"</span> is a tool designed to provide tailored activity recommendations based on weather forecasts for any city.
-              </p>
-              <p className="leading-relaxed">
-                Get intelligent suggestions for:
-                <span className="block mt-2 ml-4 font-medium text-foreground">
-                  • Skiing
-                  • Surfing
-                  • Sightseeing
-                </span>
-              </p>
-              <p className="leading-relaxed">
-                Using real-time data from Open-Meteo, simply search for a city or town to explore the forecast and discover the most suitable activities.
+                <span className="font-semibold text-foreground">"Weather or Not"</span> is a tool designed to provide tailored activity recommendations based on weather forecasts for any city. Get intelligent suggestions for skiing, surfing, and sightseeing using real-time data from Open-Meteo. Simply search for a city or town to explore the forecast and discover the most suitable activities.
               </p>
             </div>
 
