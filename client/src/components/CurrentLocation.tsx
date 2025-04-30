@@ -9,9 +9,9 @@ export default function CurrentLocation({ location }: CurrentLocationProps) {
   const today = new Date();
   const formattedDate = format(today, "EEEE, MMMM d, yyyy");
 
-  // Split location into parts and extract city and country
-  const [city, region, country] = location.split(', ');
-  const displayLocation = country ? `${city}, ${country}` : city;
+  // Split location into parts and extract city and country if location exists
+  const [city, region, country] = location?.split(', ') || [];
+  const displayLocation = location ? (country ? `${city}, ${country}` : city) : '';
 
   return (
     <div key={location} className="mb-4 sm:mb-8 text-center">
