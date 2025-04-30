@@ -94,6 +94,47 @@ export async function getLocationFromQuery(query: string): Promise<GeocodingResp
 }
 
 /**
+ * Get location name from coordinates (reverse geocoding)
+ */
+export async function reverseGeocode(latitude: string, longitude: string): Promise<GeocodingResponse> {
+  try {
+    console.log(`Making reverse geocoding request for coordinates: ${latitude}, ${longitude}`);
+    
+    const response = await axios.get<GeocodingResponse>(GEOCODING_API_URL, {
+      params: {
+        latitude,
+        longitude,
+        count: 1,
+        language: "en",
+        format: "json"
+      }
+    });
+    
+    // Log the response for debugging
+    console.log(`Reverse geocoding API response status: ${response.status}`);
+    console.log(`Results found: ${response.data.results?.length || 0}`);
+    
+    if (!response.data.results) {
+      response.data.results = [];
+    }
+    
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error in reverse geocoding:", {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        message: error.message
+      });
+    } else {
+      console.error("Error in reverse geocoding:", error);
+    }
+    throw new Error("Failed to reverse geocode coordinates");
+  }
+}
+
+/**
  * Get 7-day weather forecast for a location
  */
 export async function getWeatherForecast(latitude: string, longitude: string) {

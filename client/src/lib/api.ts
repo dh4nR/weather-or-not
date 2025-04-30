@@ -26,6 +26,34 @@ export async function searchLocations(query: string): Promise<GeocodingResponse>
 }
 
 /**
+ * Get location name from coordinates (reverse geocoding)
+ */
+export async function reverseGeocode(
+  latitude: string, 
+  longitude: string
+): Promise<GeocodingResponse> {
+  try {
+    const params = new URLSearchParams({ 
+      latitude, 
+      longitude 
+    });
+    
+    const response = await fetch(`/api/reverse-geocode?${params}`);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Reverse geocoding error:', errorText);
+      throw new Error(`Failed to reverse geocode: ${response.status}`);
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error in reverseGeocode:', error);
+    throw error;
+  }
+}
+
+/**
  * Get weather forecast with activity scores for a location
  */
 export async function getWeatherForecast(

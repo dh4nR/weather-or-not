@@ -4,7 +4,7 @@ import { storage } from "./storage";
 import { z } from "zod";
 import { getWeatherForecast } from "./weather";
 import { scoreActivities } from "./activity-scorer";
-import { getLocationFromQuery } from "./weather";
+import { getLocationFromQuery, reverseGeocode } from "./weather";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get location suggestions from query
@@ -84,6 +84,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error fetching recent searches:", error);
       res.status(500).json({ 
         error: "Failed to fetch recent searches" 
+      });
+    }
+  });
+  
+  // Reverse geocode coordinates to get location name
+  app.get("/api/reverse-geocode", async (req, res) => {
+    try {
+      const latitude = req.query.latitude as string;
+      const longitude = req.query.longitude as string;
+      
+      if (!latitude || !longitude) {
+        return res.status(400).json({ 
+          error: "Latitude and longitude parameters are required" 
+        });
+      }
+      
+      console.log(`Reverse geocoding coordinates: ${latitude}, ${longitude}`);
+      const locationData = await reverseGeocode(latitude, longitude);
+      console.log(`Found ${locationData.results?.length || 0} locations for coordinates`);
+      res.json(locationData);
+    } catch (error) {
+      console.error("Error in reverse geocoding:", error);
+      res.status(500).json({ 
+        error: "Failed to reverse geocode coordinates" 
       });
     }
   });
