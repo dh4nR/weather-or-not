@@ -1,3 +1,4 @@
+
 import { format } from "date-fns";
 
 interface CurrentLocationProps {
@@ -9,9 +10,13 @@ export default function CurrentLocation({ location }: CurrentLocationProps) {
   const formattedDate = format(today, "EEEE, MMMM d, yyyy");
 
   return (
-    <div key={location} className="mb-4 sm:mb-8 text-center animate-fade-in">
-      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 line-clamp-2">{location}</h2>
-      <p className="text-muted-foreground text-sm sm:text-base md:text-lg font-medium">{formattedDate}</p>
+    <div key={location} className="mb-4 sm:mb-8 text-center">
+      <div className="animate-slide-down">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-primary transition-colors duration-300 hover:text-primary/80">{location}</h2>
+      </div>
+      <div className="animate-fade-up">
+        <p className="text-muted-foreground text-base sm:text-lg md:text-xl font-medium">{formattedDate}</p>
+      </div>
     </div>
   );
 }
