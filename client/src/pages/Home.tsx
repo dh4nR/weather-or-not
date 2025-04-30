@@ -93,7 +93,7 @@ export default function Home() {
             <h2 className="text-xl sm:text-2xl font-bold mb-4 px-4">Activity Weather Forecast</h2>
             <div className="text-muted-foreground w-full max-w-[90%] sm:max-w-md mx-auto mb-8 px-4">
               <p className="leading-relaxed text-sm sm:text-base">
-                <span className="font-semibold text-foreground">"Weather or Not"</span> is a tool designed to provide tailored activity recommendations based on weather forecasts for any city. Get intelligent suggestions for skiing, surfing, and sightseeing. Search for a city or town to explore the forecast and discover the most suitable activities.
+                This is a tool designed to provide tailored activity recommendations based on weather forecasts for any city. Get intelligent suggestions for skiing, surfing, and sightseeing. Search for a city or town to explore the forecast and discover the most suitable activities.
               </p>
             </div>
 
