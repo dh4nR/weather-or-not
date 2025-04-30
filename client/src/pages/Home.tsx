@@ -15,6 +15,7 @@ import { useSearchHistory } from "@/hooks/useSearchHistory";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
 import { searchLocations } from "@/lib/api";
 import { useThemeMode } from "@/hooks/useThemeMode";
+import { useWeatherTheme } from "@/hooks/useWeatherTheme";
 
 export default function Home() {
   const [searchParams, setSearchParams] = useState<{
@@ -28,6 +29,7 @@ export default function Home() {
   const themeMode = useThemeMode();
   const userLocation = useCurrentLocation();
   const { searchHistory, addToHistory } = useSearchHistory();
+  const { updateWeatherTheme, colorTheme } = useWeatherTheme();
 
   useEffect(() => {
     if (userLocation && !userLocation.loading && !searchParams) {
@@ -39,23 +41,51 @@ export default function Home() {
     queryKey: ['weather', searchParams?.latitude, searchParams?.longitude],
     enabled: !!searchParams,
   });
+  
+  // Update weather theme when weather data changes
+  useEffect(() => {
+    if (weatherData) {
+      updateWeatherTheme(weatherData);
+    }
+  }, [weatherData]);
 
   if (error) {
     return <ErrorState />;
   }
 
+  // Generate dynamic gradient based on weather theme
+  const titleGradient = searchParams && weatherData
+    ? `bg-gradient-to-r from-[${colorTheme.gradientFrom}] via-[${colorTheme.secondary}] to-[${colorTheme.gradientTo}]`
+    : "bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600";
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div 
+      className="min-h-screen flex flex-col"
+      style={{
+        transition: "all 0.5s ease-in-out"
+      }}
+    >
       <Header onLocationSelect={setSearchParams} />
-      <main className="container mx-auto px-4 py-8 flex-grow">
+      <main 
+        className="container mx-auto px-4 py-8 flex-grow"
+        style={{
+          background: searchParams && weatherData ? colorTheme.background : undefined,
+          transition: "background 0.5s ease-in-out"
+        }}
+      >
         {searchParams && (
-          <CurrentLocation location={searchParams.name} />
+          <CurrentLocation 
+            location={searchParams.name} 
+            style={{ 
+              color: searchParams && weatherData ? colorTheme.textColor : undefined
+            }}
+          />
         )}
 
         {!searchParams && !isLoading && (
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-center py-8 sm:py-12">
             <div className="mb-6 sm:mb-8">
-              <h1 className="px-6 py-3 sm:py-4 text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent drop-shadow-sm animate-pulse-slow">
+              <h1 className={`px-6 py-3 sm:py-4 text-4xl sm:text-5xl md:text-6xl font-extrabold ${titleGradient} bg-clip-text text-transparent drop-shadow-sm animate-pulse-slow`}>
                 Weather or Not
               </h1>
             </div>

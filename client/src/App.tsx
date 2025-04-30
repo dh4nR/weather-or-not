@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import { useThemeMode } from "@/hooks/useThemeMode";
+import { WeatherThemeProvider } from "@/hooks/useWeatherTheme";
 
 function Router() {
   return (
@@ -22,16 +23,19 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div 
-          className={themeMode}
-          style={{ 
-            backgroundColor: themeMode === 'dark' ? "rgb(24, 24, 24)" : "rgb(248, 250, 252)",
-            minHeight: '100vh'
-          }}
-        >
-          <Toaster />
-          <Router />
-        </div>
+        <WeatherThemeProvider>
+          <div 
+            className={themeMode}
+            style={{ 
+              backgroundColor: themeMode === 'dark' ? "rgb(24, 24, 24)" : "rgb(248, 250, 252)",
+              minHeight: '100vh',
+              transition: 'background-color 0.5s ease-in-out'
+            }}
+          >
+            <Toaster />
+            <Router />
+          </div>
+        </WeatherThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
