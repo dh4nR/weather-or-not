@@ -7,17 +7,18 @@ export async function searchLocations(query: string): Promise<GeocodingResponse>
   if (!query || query.trim().length < 2) {
     return { results: [] };
   }
-  
+
   try {
     const params = new URLSearchParams({ query: query.trim() });
-    const response = await fetch(`/api/locations?${params}`);
-    
+    const API_BASE = process.env.NODE_ENV === 'production' ? 'https://' + window.location.host + '/api' : '/api';
+    const response = await fetch(`${API_BASE}/locations?${params}`);
+
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Location search error:', errorText);
       throw new Error(`Failed to fetch location data: ${response.status}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error('Error in searchLocations:', error);
@@ -37,15 +38,15 @@ export async function reverseGeocode(
       latitude, 
       longitude 
     });
-    
-    const response = await fetch(`/api/reverse-geocode?${params}`);
-    
+    const API_BASE = process.env.NODE_ENV === 'production' ? 'https://' + window.location.host + '/api' : '/api';
+    const response = await fetch(`${API_BASE}/reverse-geocode?${params}`);
+
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Reverse geocoding error:', errorText);
       throw new Error(`Failed to reverse geocode: ${response.status}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error('Error in reverseGeocode:', error);
@@ -66,12 +67,12 @@ export async function getWeatherForecast(
     longitude, 
     name 
   });
-  
-  const response = await fetch(`/api/forecast?${params}`);
-  
+  const API_BASE = process.env.NODE_ENV === 'production' ? 'https://' + window.location.host + '/api' : '/api';
+  const response = await fetch(`${API_BASE}/forecast?${params}`);
+
   if (!response.ok) {
     throw new Error('Failed to fetch weather forecast');
   }
-  
+
   return await response.json();
 }
