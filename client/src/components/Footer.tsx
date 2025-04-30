@@ -1,5 +1,3 @@
-import C4Logo from "./C4Logo";
-
 export default function Footer() {
   return (
     <footer className="bg-muted text-foreground py-4 px-3 sm:p-6 border-t border-border mt-8">
@@ -7,7 +5,6 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
           <div className="mb-4 md:mb-0">
             <div className="flex items-center justify-center md:justify-start">
-              <C4Logo className="h-6 w-6 sm:h-8 sm:w-8 mr-2" />
               <span className="text-base sm:text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Whether or Not</span>
             </div>
             <p className="text-muted-foreground text-xs sm:text-sm mt-1">Your personal weather-based activity advisor</p>
