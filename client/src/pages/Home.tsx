@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { WeatherForecastData } from "@shared/types";
 
 import Header from "@/components/Header";
 import SearchForm from "@/components/SearchForm";
+import SearchHistory from "@/components/SearchHistory";
 import CurrentLocation from "@/components/CurrentLocation";
 import ActivityLegend from "@/components/ActivityLegend";
 import ActivitySummaryChart from "@/components/ActivitySummaryChart";
@@ -11,6 +12,7 @@ import WeatherForecast from "@/components/WeatherForecast";
 import ErrorState from "@/components/ErrorState";
 import Footer from "@/components/Footer";
 import C4Logo from "@/components/C4Logo";
+import { useSearchHistory } from "@/hooks/useSearchHistory";
 
 export default function Home() {
   const [searchParams, setSearchParams] = useState<{
@@ -18,6 +20,8 @@ export default function Home() {
     longitude: string;
     name: string;
   } | null>(null);
+  
+  const { searchHistory, addToHistory } = useSearchHistory();
 
   const { 
     data, 
@@ -29,6 +33,13 @@ export default function Home() {
     queryKey: ['/api/forecast', searchParams?.latitude, searchParams?.longitude, searchParams?.name],
     enabled: !!(searchParams?.latitude && searchParams?.longitude && searchParams?.name),
   });
+
+  // Save search to history when successful
+  useEffect(() => {
+    if (data && searchParams) {
+      addToHistory(searchParams);
+    }
+  }, [data, searchParams, addToHistory]);
 
   const handleSearch = (latitude: string, longitude: string, name: string) => {
     setSearchParams({ latitude, longitude, name });
@@ -58,6 +69,12 @@ export default function Home() {
             <div className="w-full max-w-md">
               <SearchForm onSearch={handleSearch} />
             </div>
+            
+            {searchHistory.length > 0 && (
+              <div className="w-full max-w-md mt-8">
+                <SearchHistory onSelectLocation={handleSearch} />
+              </div>
+            )}
           </div>
         )}
         

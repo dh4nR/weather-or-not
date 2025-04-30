@@ -10,8 +10,8 @@ export default function CurrentLocation({ location }: CurrentLocationProps) {
 
   return (
     <div className="mb-8 text-center">
-      <h2 className="text-3xl font-bold text-neutral-800 mb-1">{location}</h2>
-      <p className="text-neutral-500">{formattedDate}</p>
+      <h2 className="text-3xl font-bold mb-1">{location}</h2>
+      <p className="text-muted-foreground">{formattedDate}</p>
     </div>
   );
 }

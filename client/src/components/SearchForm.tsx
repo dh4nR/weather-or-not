@@ -78,7 +78,7 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
           value={query}
           onChange={handleInputChange}
           placeholder="Search for a city or town..."
-          className="w-full pl-4 pr-10 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full pl-4 pr-10 py-2 bg-card border-border rounded-lg focus:ring-2 focus:ring-primary"
           onFocus={() => query.length > 1 && setShowResults(true)}
           autoComplete="off"
         />
@@ -94,22 +94,22 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
 
       <div 
         className={cn(
-          "absolute z-10 w-full bg-white border border-neutral-200 rounded-lg shadow-lg mt-1",
+          "absolute z-10 w-full bg-card border border-border rounded-lg shadow-lg mt-1",
           ((!locations?.results?.length && !isLoading) || !showResults) && "hidden"
         )}
       >
         {isLoading && (
-          <div className="p-3 text-neutral-500 text-sm">Loading...</div>
+          <div className="p-3 text-muted-foreground text-sm">Loading...</div>
         )}
         
         {error && (
-          <div className="p-3 text-red-500 text-sm">Error loading locations. Please try again.</div>
+          <div className="p-3 text-destructive text-sm">Error loading locations. Please try again.</div>
         )}
         
         {locations?.results?.map((location) => (
           <div 
             key={location.id}
-            className="p-2 hover:bg-neutral-100 cursor-pointer border-b border-neutral-200 last:border-b-0"
+            className="p-2 hover:bg-muted cursor-pointer border-b border-border last:border-b-0"
             onClick={() => handleSelectLocation(location)}
           >
             {location.admin1 
@@ -119,7 +119,7 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
         ))}
         
         {locations?.results?.length === 0 && !isLoading && !error && (
-          <div className="p-3 text-neutral-500 text-sm">No locations found</div>
+          <div className="p-3 text-muted-foreground text-sm">No locations found</div>
         )}
       </div>
     </div>
