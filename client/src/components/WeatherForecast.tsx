@@ -1,3 +1,4 @@
+import React from 'react';
 import { WeatherForecastData } from "@shared/types";
 import DayForecast from "./DayForecast";
 import { Skeleton } from "@/components/ui/skeleton";
