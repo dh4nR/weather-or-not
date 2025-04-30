@@ -21,7 +21,9 @@ export function useCurrentLocation() {
 
   async function getLocationFromIP() {
     try {
+      console.log('Attempting to get location from IP...');
       const response = await axios.get('https://ipapi.co/json/');
+      console.log('IP Location response:', response.data);
       setLocation({
         latitude: response.data.latitude.toString(),
         longitude: response.data.longitude.toString(),
@@ -43,8 +45,10 @@ export function useCurrentLocation() {
       return;
     }
 
+    console.log('Requesting browser geolocation...');
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        console.log('Browser geolocation success:', position.coords);
         setLocation({
           latitude: position.coords.latitude.toString(),
           longitude: position.coords.longitude.toString(),
