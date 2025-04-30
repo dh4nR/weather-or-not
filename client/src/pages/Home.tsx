@@ -43,7 +43,7 @@ export default function Home() {
         
         {!searchParams && !isLoading && (
           <div className="flex flex-col items-center justify-center h-[60vh] text-center">
-            <h2 className="text-2xl font-bold text-neutral-800 mb-4">Welcome to WeatherWanderer</h2>
+            <h2 className="text-2xl font-bold text-neutral-800 mb-4">Welcome to Whether or Not</h2>
             <p className="text-neutral-600 max-w-md mb-6">
               Search for a city or town to get weather forecasts and activity recommendations for skiing, surfing, and sightseeing.
             </p>
