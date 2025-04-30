@@ -13,7 +13,12 @@ Try out Whether or Not at: https://weather-or-not.replit.app/
 - **Location Search**: Search for any city or town worldwide
 - **Search History**: Automatically saves your five most recent searches
 - **Responsive Design**: Optimized for mobile, tablet, and desktop devices
-- **Dark Theme**: Comfortable viewing experience with a modern dark theme
+
+## Repository Structure
+- **client/**: Contains the frontend application code. ￼
+- **server/**: Houses the backend server code. ￼
+- **shared/**: Includes shared utilities and types used across the client and server.
+- **README.**md: Provides an overview of the project, its features, and setup instructions
 
 ## Tech Stack
 
@@ -22,16 +27,16 @@ Try out Whether or Not at: https://weather-or-not.replit.app/
 - **State Management**: React Query
 - **APIs**: Open-Meteo API for weather data and geocoding
 
-## Getting Started
+## Setup Instructions
 
-### Prerequisites
-
-- Node.js (v18+)
-- npm (v9+)
-
-### Installation
+To set up and run the application locally:
 
 1. Clone this repository
+   ```
+   git clone https://github.com/dh4nR/weather-or-not.git
+   cd weather-or-not
+   ```
+
 2. Install dependencies:
    ```
    npm install
@@ -41,12 +46,6 @@ Try out Whether or Not at: https://weather-or-not.replit.app/
    ```
    npm run dev
    ```
-
-## Project Structure
-
-- `/client` - Frontend React application
-- `/server` - Backend Express server
-- `/shared` - Shared types and schemas between client and server
 
 ## API References
 
