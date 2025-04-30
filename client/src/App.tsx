@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 function Router() {
   return (
@@ -16,10 +17,18 @@ function Router() {
 }
 
 function App() {
+  const themeMode = useThemeMode();
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="dark" style={{ backgroundColor: "rgb(24, 24, 24)" }}>
+        <div 
+          className={themeMode}
+          style={{ 
+            backgroundColor: themeMode === 'dark' ? "rgb(24, 24, 24)" : "rgb(248, 250, 252)",
+            minHeight: '100vh'
+          }}
+        >
           <Toaster />
           <Router />
         </div>

@@ -100,12 +100,14 @@ export async function reverseGeocode(latitude: string, longitude: string): Promi
   try {
     console.log(`Making reverse geocoding request for coordinates: ${latitude}, ${longitude}`);
     
+    // Use a different endpoint for reverse geocoding
+    // Open-Meteo doesn't support direct reverse geocoding, so we need to search for nearby locations
+    // and return the closest one
     const response = await axios.get<GeocodingResponse>(GEOCODING_API_URL, {
       params: {
         latitude,
         longitude,
-        count: 1,
-        language: "en",
+        count: 10,  // Get multiple results to find the closest one
         format: "json"
       }
     });
