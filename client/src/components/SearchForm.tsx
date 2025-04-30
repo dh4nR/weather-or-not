@@ -78,7 +78,7 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
           value={query}
           onChange={handleInputChange}
           placeholder="Search for a city or town..."
-          className="w-full pl-4 pr-10 py-2 bg-card border-border rounded-lg focus:ring-2 focus:ring-primary"
+          className="w-full pl-3 pr-10 py-2 sm:pl-4 bg-card border-border rounded-lg focus:ring-2 focus:ring-primary text-sm sm:text-base"
           onFocus={() => query.length > 1 && setShowResults(true)}
           autoComplete="off"
         />
@@ -94,32 +94,35 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
 
       <div 
         className={cn(
-          "absolute z-10 w-full bg-card border border-border rounded-lg shadow-lg mt-1",
+          "absolute z-10 w-full bg-card border border-border rounded-lg shadow-lg mt-1 max-h-[60vh] overflow-y-auto",
           ((!locations?.results?.length && !isLoading) || !showResults) && "hidden"
         )}
       >
         {isLoading && (
-          <div className="p-3 text-muted-foreground text-sm">Loading...</div>
+          <div className="p-2 sm:p-3 text-muted-foreground text-xs sm:text-sm">Loading...</div>
         )}
         
         {error && (
-          <div className="p-3 text-destructive text-sm">Error loading locations. Please try again.</div>
+          <div className="p-2 sm:p-3 text-destructive text-xs sm:text-sm">Error loading locations. Please try again.</div>
         )}
         
         {locations?.results?.map((location) => (
           <div 
             key={location.id}
-            className="p-2 hover:bg-muted cursor-pointer border-b border-border last:border-b-0"
+            className="p-2 hover:bg-muted cursor-pointer border-b border-border last:border-b-0 text-xs sm:text-sm"
             onClick={() => handleSelectLocation(location)}
           >
-            {location.admin1 
-              ? `${location.name}, ${location.admin1}, ${location.country}`
-              : `${location.name}, ${location.country}`}
+            <div className="font-medium">{location.name}</div>
+            <div className="text-muted-foreground text-xs">
+              {location.admin1 
+                ? `${location.admin1}, ${location.country}`
+                : location.country}
+            </div>
           </div>
         ))}
         
         {locations?.results?.length === 0 && !isLoading && !error && (
-          <div className="p-3 text-muted-foreground text-sm">No locations found</div>
+          <div className="p-2 sm:p-3 text-muted-foreground text-xs sm:text-sm">No locations found</div>
         )}
       </div>
     </div>
