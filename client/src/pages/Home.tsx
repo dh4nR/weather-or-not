@@ -66,7 +66,7 @@ export default function Home() {
             <div className="z-10 w-full max-w-2xl px-4">
               {/* Title without background */}
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-primary mb-3">
-                Weather or Not
+                Whether or Not
               </h1>
               
               {/* Main headline */}
