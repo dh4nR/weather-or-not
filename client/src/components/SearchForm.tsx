@@ -15,6 +15,18 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
   const [query, setQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [debouncedQuery, setDebouncedQuery] = useState("");
+  const formRef = useRef<HTMLDivElement>(null);
+
+  // Handle click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (formRef.current && !formRef.current.contains(event.target as Node)) {
+        setShowResults(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Debounce the search query to avoid too many requests
   useEffect(() => {
@@ -71,7 +83,7 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={formRef}>
       <form onSubmit={handleSubmit} className="relative">
         <Input
           type="text"
