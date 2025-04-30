@@ -86,19 +86,19 @@ export default function Home() {
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-center py-12">
             <div className="flex items-center mb-6">
               <C4Logo className="h-14 w-14 mr-3" />
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent px-4">
                 Whether or Not
               </h1>
             </div>
-            <h2 className="text-2xl font-bold mb-4">Activity Weather Forecast</h2>
-            <div className="text-muted-foreground max-w-md mb-8">
-              <p className="leading-relaxed">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 px-4">Activity Weather Forecast</h2>
+            <div className="text-muted-foreground w-full max-w-[90%] sm:max-w-md mx-auto mb-8 px-4">
+              <p className="leading-relaxed text-sm sm:text-base">
                 <span className="font-semibold text-foreground">"Weather or Not"</span> is a tool designed to provide tailored activity recommendations based on weather forecasts for any city. Get intelligent suggestions for skiing, surfing, and sightseeing. Search for a city or town to explore the forecast and discover the most suitable activities.
               </p>
             </div>
 
             {/* More prominent search form with a shadow and border */}
-            <div className="w-full max-w-md mb-6 transform transition-all duration-300 hover:scale-105">
+            <div className="w-full max-w-[90%] sm:max-w-md mx-auto mb-6 transform transition-all duration-300 hover:scale-105 px-4">
               <div className="p-4 card-dark rounded-lg border-2 border-primary shadow-lg shadow-primary/20">
                 <SearchForm onSearch={handleSearch} />
 
