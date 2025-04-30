@@ -2,6 +2,10 @@
 
 A dynamic weather-based activity recommendation application that provides intelligent insights for outdoor activities like skiing, surfing, and sightseeing across different locations.
 
+## Demo
+
+Try out Whether or Not at: https://weather-or-not.replit.app/
+
 ## Features
 
 - **Real-time Weather Forecasting**: Get up-to-date 7-day weather forecasts using the Open-Meteo API
