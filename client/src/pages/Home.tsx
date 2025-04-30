@@ -93,7 +93,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold mb-4">Activity Weather Forecast</h2>
             <div className="text-muted-foreground max-w-md mb-8 space-y-4">
               <p className="leading-relaxed">
-                <span className="font-semibold text-foreground">"Weather or Not"</span> is the door designed to provides tailored activity recommendations based on weather forecasts for any city.
+                <span className="font-semibold text-foreground">"Weather or Not"</span> is a tool designed to provide tailored activity recommendations based on weather forecasts for any city.
               </p>
               <p className="leading-relaxed">
                 Get intelligent suggestions for:
