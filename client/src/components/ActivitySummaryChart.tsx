@@ -41,8 +41,8 @@ const ActivityLegendItem = ({ color, name, icon, score }: ActivityLegendItemProp
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white p-3 border border-neutral-200 rounded-md shadow-lg">
-        <p className="font-medium text-neutral-800">{label}</p>
+      <div className="card-dark p-3 border rounded-md shadow-lg text-card-foreground">
+        <p className="font-medium">{label}</p>
         <div className="mt-2 space-y-1">
           {payload.map((entry: any, index: number) => (
             <div key={`item-${index}`} className="flex items-center gap-2">
@@ -130,61 +130,61 @@ export default function ActivitySummaryChart({ days }: ActivitySummaryChartProps
 
   return (
     <Card className="mb-8 overflow-hidden border-primary/20">
-      <div className="bg-gradient-to-r from-primary/20 to-primary/5 px-6 py-4">
-        <CardTitle className="flex items-center gap-2 text-xl text-neutral-800">
+      <div className="bg-gradient-to-r from-primary/20 to-primary/5 px-4 sm:px-6 py-4">
+        <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
           <TrendingUp className="h-5 w-5 text-primary" />
           Activity Overview and Recommendations
         </CardTitle>
       </div>
       
-      <CardContent className="p-6">
+      <CardContent className="p-3 sm:p-6">
         <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg border border-primary/20 p-4">
-              <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg border border-primary/20 p-3 sm:p-4">
+              <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 flex items-center gap-2">
                 <Badge className={getActivityColor(bestActivity.activity)}>
                   {getActivityIcon(bestActivity.activity)}
                 </Badge>
                 Best Activity
               </h3>
               
-              <div className="mb-3">
+              <div className="mb-2 sm:mb-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-xl font-bold">{formatActivityName(bestActivity.activity)}</span>
-                  <StarRating score={bestActivity.score} size={18} />
+                  <span className="text-lg sm:text-xl font-bold">{formatActivityName(bestActivity.activity)}</span>
+                  <StarRating score={bestActivity.score} size={16} />
                 </div>
-                <p className="text-sm text-neutral-600 mt-1">
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                   This location is especially good for {formatActivityName(bestActivity.activity).toLowerCase()} during your stay
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-                <div className="flex items-center gap-2 text-sm">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4">
+                <div className="flex items-center gap-2 text-xs sm:text-sm">
                   <ThermometerSun className="h-4 w-4 text-amber-500" />
                   <span>Average Temp: {Math.round(days.reduce((acc, day) => acc + day.temperature, 0) / days.length)}°F</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
+                <div className="flex items-center gap-2 text-xs sm:text-sm">
                   <Calendar className="h-4 w-4 text-primary" />
                   <span>Forecast: {days.length} days</span>
                 </div>
               </div>
             </div>
             
-            <div className="p-4 rounded-lg border border-neutral-200">
-              <h3 className="text-lg font-semibold mb-3">Best Days by Activity</h3>
-              <div className="grid gap-3">
+            <div className="p-3 sm:p-4 rounded-lg border card-dark">
+              <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Best Days by Activity</h3>
+              <div className="grid gap-2 sm:gap-3">
                 {Object.entries(bestDays).map(([activity, day]) => day && (
-                  <div key={activity} className="flex items-center justify-between px-3 py-2 rounded-md bg-neutral-50">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-6 h-6 rounded-md flex items-center justify-center ${getActivityColor(activity)} text-white`}>
+                  <div key={activity} className="flex flex-col xs:flex-row xs:items-center xs:justify-between p-2 sm:px-3 sm:py-2 rounded-md bg-primary/5">
+                    <div className="flex items-center gap-2 mb-1 xs:mb-0">
+                      <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-md flex items-center justify-center ${getActivityColor(activity)} text-white`}>
                         {getActivityIcon(activity)}
                       </div>
-                      <span className="font-medium">{formatActivityName(activity)}</span>
+                      <span className="font-medium text-sm">{formatActivityName(activity)}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <StarRating score={day.activityScores[activity as keyof typeof day.activityScores]} showText={false} />
-                      <ArrowRight className="h-3 w-3 text-neutral-400" />
-                      <span className="text-sm">{day.day}</span>
+                    <div className="flex items-center gap-1 sm:gap-2 ml-7 xs:ml-0">
+                      <StarRating score={day.activityScores[activity as keyof typeof day.activityScores]} showText={false} size={14} />
+                      <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                      <span className="text-xs sm:text-sm">{day.day}</span>
                     </div>
                   </div>
                 ))}
@@ -192,10 +192,10 @@ export default function ActivitySummaryChart({ days }: ActivitySummaryChartProps
             </div>
           </div>
 
-          <div className="mt-5">
-            <div className="mb-3 p-2 bg-neutral-50 rounded-md border border-neutral-200">
-              <h4 className="text-sm font-medium mb-2">Chart Legend</h4>
-              <div className="flex flex-wrap gap-x-6 gap-y-2">
+          <div className="mt-4 sm:mt-5">
+            <div className="mb-3 p-2 rounded-md border card-dark">
+              <h4 className="text-xs sm:text-sm font-medium mb-2">Chart Legend</h4>
+              <div className="flex flex-wrap gap-x-3 sm:gap-x-6 gap-y-2">
                 <ActivityLegendItem 
                   color={activityColors.skiing} 
                   name="Skiing" 
@@ -223,21 +223,23 @@ export default function ActivitySummaryChart({ days }: ActivitySummaryChartProps
               </div>
             </div>
 
-            <div className="h-80 mt-4">
+            <div className="h-60 sm:h-80 mt-3 sm:mt-4">
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                  <XAxis dataKey="name" />
+                  <XAxis dataKey="name" tick={{ fontSize: 12 }} />
                   <YAxis 
                     yAxisId="left" 
                     domain={[0, 5]} 
-                    label={{ value: 'Activity Score', angle: -90, position: 'insideLeft' }} 
+                    label={{ value: 'Activity Score', angle: -90, position: 'insideLeft', style: { fontSize: '12px' } }} 
+                    tick={{ fontSize: 12 }}
                   />
                   <YAxis 
                     yAxisId="right" 
                     orientation="right" 
                     domain={['dataMin - 5', 'dataMax + 5']} 
-                    label={{ value: 'Temperature (°F)', angle: 90, position: 'insideRight' }} 
+                    label={{ value: 'Temperature (°F)', angle: 90, position: 'insideRight', style: { fontSize: '12px' } }} 
+                    tick={{ fontSize: 12 }}
                   />
                   <Tooltip content={<CustomTooltip />} />
                   <Bar yAxisId="left" dataKey="skiing" fill={activityColors.skiing} name="Skiing" />

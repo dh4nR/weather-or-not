@@ -18,8 +18,9 @@ body {
 }
 
 .card-dark {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 :root {
@@ -74,6 +75,13 @@ body {
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Custom responsive breakpoint for extra small screens */
+@media (min-width: 475px) {
+  .xs\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

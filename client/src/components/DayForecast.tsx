@@ -41,7 +41,7 @@ export default function DayForecast({ day, isToday }: DayForecastProps) {
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-lg"
+      className="card-dark rounded-lg shadow-md overflow-hidden transition-all hover:shadow-lg"
     >
       <div className={`p-3 ${isToday ? 'bg-gradient-to-r from-primary to-primary/90' : 'bg-primary'} text-white`}>
         <div className="flex items-center justify-between">
@@ -59,12 +59,12 @@ export default function DayForecast({ day, isToday }: DayForecastProps) {
       </div>
       
       {/* Summary information always visible */}
-      <div className="p-3 border-b flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <WeatherIcon className="text-amber-500 h-10 w-10" />
+      <div className="p-3 border-b flex flex-col sm:flex-row items-start sm:items-center justify-between">
+        <div className="flex items-center gap-3 w-full sm:w-auto mb-2 sm:mb-0">
+          <WeatherIcon className="text-amber-500 h-8 w-8 sm:h-10 sm:w-10" />
           <div>
-            <span className={`text-xl font-bold ${getTempColor(day.temperature)}`}>{day.temperature}°F</span>
-            <div className="text-neutral-500 text-sm flex items-center gap-1">
+            <span className={`text-lg sm:text-xl font-bold ${getTempColor(day.temperature)}`}>{day.temperature}°F</span>
+            <div className="text-muted-foreground text-xs sm:text-sm flex items-center gap-1 flex-wrap mt-1">
               {bestActivity && (
                 <Badge variant="outline" className="text-xs py-0">
                   Best for: {getBestActivityName(bestActivity)}
@@ -74,7 +74,7 @@ export default function DayForecast({ day, isToday }: DayForecastProps) {
           </div>
         </div>
         
-        <div className="text-sm text-neutral-700">
+        <div className="text-xs sm:text-sm text-muted-foreground ml-11 sm:ml-0">
           <div className="flex items-center gap-1">
             <ThermometerSun className="h-3 w-3 text-amber-500" />
             <span>{day.temperatureHigh}°</span>
@@ -86,38 +86,38 @@ export default function DayForecast({ day, isToday }: DayForecastProps) {
       
       {/* Detailed content shown when expanded */}
       <CollapsibleContent>
-        <div className="p-4">
+        <div className="p-3 sm:p-4">
           {day.snowfall > 0 && (
             <Badge variant="outline" className="mb-3 text-blue-600 border-blue-200 bg-blue-50 flex items-center gap-1">
               <Snowflake className="h-3 w-3" /> Snowfall: {day.snowfall} cm
             </Badge>
           )}
           
-          <div className="grid grid-cols-2 gap-2 text-sm mb-4">
-            <div className="text-neutral-600 flex items-center">
+          <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 text-xs sm:text-sm mb-4">
+            <div className="text-muted-foreground flex items-center">
               <ThermometerSun className="w-4 h-4 mr-1 text-amber-500" /> 
               <span>High: <span className="font-medium">{day.temperatureHigh}°F</span></span>
             </div>
-            <div className="text-neutral-600 flex items-center">
+            <div className="text-muted-foreground flex items-center">
               <ThermometerSnowflake className="w-4 h-4 mr-1 text-blue-500" /> 
               <span>Low: <span className="font-medium">{day.temperatureLow}°F</span></span>
             </div>
-            <div className="text-neutral-600 flex items-center">
+            <div className="text-muted-foreground flex items-center">
               <Wind className="w-4 h-4 mr-1 text-gray-500" /> 
               <span>Wind: <span className="font-medium">{day.windSpeed} mph</span></span>
             </div>
-            <div className="text-neutral-600 flex items-center">
+            <div className="text-muted-foreground flex items-center">
               <Droplets className="w-4 h-4 mr-1 text-cyan-500" /> 
               <span>Rain: <span className="font-medium">{day.precipitationProbability}%</span></span>
             </div>
           </div>
           
-          <div className="text-neutral-700 mb-3">
+          <div className="text-card-foreground mb-3 text-sm">
             <p>{day.condition}</p>
           </div>
           
           {bestActivity && (
-            <div className="mb-3 bg-primary/10 rounded-md p-2 text-sm">
+            <div className="mb-3 bg-primary/10 rounded-md p-2 text-xs sm:text-sm">
               <span className="font-medium">Best for:</span> {getBestActivityName(bestActivity)}
             </div>
           )}
@@ -125,7 +125,7 @@ export default function DayForecast({ day, isToday }: DayForecastProps) {
           <Separator className="my-3" />
           
           <div className="space-y-3">
-            <h4 className="text-neutral-800 font-medium mb-2">Activity Scores:</h4>
+            <h4 className="text-card-foreground font-medium mb-2 text-sm">Activity Scores:</h4>
             
             <ActivityScore 
               activity="Skiing" 
