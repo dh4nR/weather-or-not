@@ -72,7 +72,7 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
     const fullName = location.admin1 
       ? `${location.name}, ${location.admin1}, ${location.country}`
       : `${location.name}, ${location.country}`;
-      
+
     onSearch(
       location.latitude.toString(),
       location.longitude.toString(),
@@ -106,22 +106,22 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
 
       <div 
         className={cn(
-          "absolute z-10 w-full bg-card border border-border rounded-lg shadow-lg mt-1 max-h-[60vh] overflow-y-auto",
+          "absolute z-10 w-full bg-white border border-border rounded-lg shadow-lg mt-1 max-h-[60vh] overflow-y-auto",
           ((!locations?.results?.length && !isLoading) || !showResults) && "hidden"
         )}
       >
         {isLoading && (
           <div className="p-2 sm:p-3 text-muted-foreground text-xs sm:text-sm">Loading...</div>
         )}
-        
+
         {error && (
           <div className="p-2 sm:p-3 text-destructive text-xs sm:text-sm">Error loading locations. Please try again.</div>
         )}
-        
+
         {locations?.results?.map((location) => (
           <div 
             key={location.id}
-            className="p-2 hover:bg-muted cursor-pointer border-b border-border last:border-b-0 text-xs sm:text-sm"
+            className="p-2 hover:bg-muted cursor-pointer border-b border-border last:border-b-0 text-xs sm:text-sm text-gray-700" // Added text-gray-700 for dark gray text
             onClick={() => handleSelectLocation(location)}
           >
             <div className="font-medium">{location.name}</div>
@@ -132,7 +132,7 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
             </div>
           </div>
         ))}
-        
+
         {locations?.results?.length === 0 && !isLoading && !error && (
           <div className="p-2 sm:p-3 text-muted-foreground text-xs sm:text-sm">No locations found</div>
         )}
