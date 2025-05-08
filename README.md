@@ -4,7 +4,8 @@ A dynamic weather-based activity recommendation application that provides intell
 
 ## Demo
 
-Try out Whether or Not at: https://weather-or-not.replit.app/
+Try out Whether or Not at: https://weather-or-not.replit.app/ 
+Developer site (pre-release working code): [Here](https://266e5c43-685e-495d-be16-8ee1601ef67d-00-2tccdj81uvd7y.spock.replit.dev)
 
 ## Features
 
